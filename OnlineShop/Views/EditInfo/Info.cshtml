@@ -1,0 +1,82 @@
+﻿@model Model.EF.User
+@{
+    ViewBag.Title = "Info";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var listBuy = (List<Model.ViewModel.HistoryViewModel>)ViewBag.ListBuy;
+    var session = (UserLogin)Session[OnlineShop.Common.CommonConstant.USER_SESSION];
+}
+<h1 class="h3 mb-4 text-gray-800"></h1>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="col-lg-6">
+                <span> Thay đổi thông tin cá nhân </span> 
+            </div>
+            <div class="col-lg-6">
+                <span>.</span> 
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-6">
+                        @using (Html.BeginForm("Info", "EditInfo", FormMethod.Post))
+                        {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            <p>
+                                Thay đổi Password
+                            </p>
+
+                            @Html.PasswordFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+
+                        </div>
+                        <div class="form-group">
+                            <p>
+                                Thay đổi Name
+                            </p>
+
+                            @Html.TextBoxFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+
+                        </div>
+                        <div class="form-group">
+                            <p>
+                                Thay đổi Address
+                            </p>
+
+                            @Html.TextBoxFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+
+                        </div>
+                        <div class="form-group">
+                            <p>
+                                Thay đổi Email
+                            </p>
+
+                            @Html.TextBoxFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+
+                        </div>
+
+                        <div class="form-group">
+                            <p>
+                                Thay đổi Phone
+                            </p>
+
+                            @Html.TextBoxFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
+
+                        </div>
+                        <div class="form-group">
+
+                            <button type="submit" class="login100-form-btn">
+                                Lưu thay đổi
+                            </button>
+
+                        </div>
+                        }
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

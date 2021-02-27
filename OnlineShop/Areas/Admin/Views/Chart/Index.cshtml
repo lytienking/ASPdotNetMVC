@@ -1,0 +1,306 @@
+﻿@{
+    ViewBag.Title = "Thống kê";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+
+}
+@section header{
+    Thống kê
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Thống kê doanh thu</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        .container {
+            width: 70%;
+            height: 70%;
+            margin: 15px auto;
+            color: black;
+        }
+    </style>
+
+    <style>
+        button {
+            width: 200px;
+            height: 50px;
+        }
+    </style>
+    <style>
+        #chart_container {
+            width: 60%;
+            height: 60%;
+            margin: 15px auto;
+            color: black;
+        }
+    </style>
+</head>
+
+
+<body>
+
+
+    <button id="renderBtn"> Thống kê các sản phẩm được mua nhiều </button>
+    <button id="renderBtn2"> Thống kê hàng tồn kho </button>
+    <button id="renderBtn3"> Thống kê các khách hàng mua nhiều </button>
+    @*<button id="renderBtn4"> Test </button>*@
+
+
+    <div id="chart_container">
+        <canvas id="myChart"></canvas>
+    </div>
+
+
+    <script>
+        var rep1 = @Html.Raw(Json.Encode(ViewBag.id4));
+        var Quan1 = @Html.Raw(Json.Encode(ViewBag.sl4));
+        function renderChart(data, labels)
+        {
+            var ctx = $("#myChart");
+            var bacChart=new Chart(ctx,{
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Thống kê các sản phẩm được ưa chuộng',
+                        data: data,
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    }]
+                },
+                options: {
+                    tooltips:{
+                        enabled:true
+                    },
+                    responsive: true,
+                    scales: {
+                        xAxes: [ {
+
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Mã SP'
+                            },
+                            ticks: {
+                                beginAtZero: true,
+                                major: {
+                                    fontStyle: 'bold',
+                                    fontColor: '#FF0000'
+                                }
+                            }
+                        } ],
+                        yAxes: [ {
+                            ticks: {
+                                beginAtZero: true},
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Số lượng'
+                            }
+                        } ]
+                    },
+                }
+            });
+        }
+        $("#renderBtn").click(
+           function () {
+               data = Quan1;
+               labels = rep1;
+
+               renderChart(data, labels);
+           }
+       );
+
+    </script>
+
+    <script>
+        var rep2 = @Html.Raw(Json.Encode(ViewBag.MaSP));
+        var Quan2 = @Html.Raw(Json.Encode(ViewBag.SoLuong));
+        function renderChart2(data, labels)
+        {
+            var ctx = $("#myChart");
+            var bacChart=new Chart(ctx,{
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Thống kê số lượng sản phẩm tồn kho',
+                        data: data,
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    }]
+                },
+                options:  {
+                    tooltips:{
+                        enabled:true
+                    },
+                    responsive: true,
+                    scales: {
+                        xAxes: [ {
+
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Mã SP'
+                            },
+                            ticks: {
+                                beginAtZero: true,
+                                major: {
+                                    fontStyle: 'bold',
+                                    fontColor: '#FF0000'
+                                }
+                            }
+                        } ],
+                        yAxes: [ {
+                            ticks: {
+                                beginAtZero: true},
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Số lượng'
+                            }
+                        } ]
+                    },
+                }
+            });
+        }
+        $("#renderBtn2").click(
+           function () {
+               data = Quan2;
+               labels = rep2;
+
+               renderChart2(data, labels);
+           }
+       );
+
+    </script>
+
+    <script>
+        var rep3 = @Html.Raw(Json.Encode(ViewBag.id5));
+        var Quan3 = @Html.Raw(Json.Encode(ViewBag.sl5));
+        function renderChart3(data, labels)
+        {
+            var ctx = $("#myChart");
+            var bacChart=new Chart(ctx,{
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Thống kê các khách mua nhiều hàng',
+                        data: data,
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    }]
+                },
+                options: {
+                    tooltips:{
+                        enabled:true},
+                    responsive: true,
+                    scales: {
+                        xAxes: [ {
+
+
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Mã Khách hàng'
+                            },
+                            ticks: {
+                                beginAtZero: true,
+                                major: {
+                                    fontStyle: 'bold',
+                                    fontColor: '#FF0000'
+                                }
+                            }
+                        } ],
+                        yAxes: [ {
+                            ticks: {
+                                beginAtZero: true},
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Số lượng'
+                            }
+                        } ]
+                    },
+                },
+            });
+        }
+        $("#renderBtn3").click(
+           function () {
+               data = Quan3;
+               labels = rep3;
+
+               renderChart3(data, labels);
+           }
+       );
+
+    </script>
+
+    @*<script>
+            var rep4 = @Html.Raw(Json.Encode(ViewBag.id4));
+            var Quan4 = @Html.Raw(Json.Encode(ViewBag.sl4));
+            function renderChart4(data, labels)
+            {
+                var ctx = $("#myChart");
+                var bacChart=new Chart(ctx,{
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Thống kê sản phẩm',
+                            data: data,
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        }]
+                    },
+                    options:  {
+                        responsive: true,
+                        scales: {
+                            xAxes: [ {
+
+                                display: true,
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'Mã SP'
+                                },
+                                ticks: {
+                                    beginAtZero: true,
+                                    major: {
+                                        fontStyle: 'bold',
+                                        fontColor: '#FF0000'
+                                    }
+                                }
+                            } ],
+                            yAxes: [ {
+                                display: true,
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'Số lượng'
+                                }
+                            } ]
+                        },
+                    },
+                });
+            }
+            $("#renderBtn4").click(
+               function () {
+                   data = Quan4;
+                   labels = rep4;
+                   renderChart4(data, labels);
+
+               }
+           );
+
+        </script>*@
+</body>
+
+</html>

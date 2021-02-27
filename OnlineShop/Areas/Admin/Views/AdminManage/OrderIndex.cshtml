@@ -1,0 +1,136 @@
+﻿@model PagedList.IPagedList<Model.EF.Order>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Quản lí Order";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var listStatus = new string[] { "Chờ xác nhận", "Chờ lấy hàng", "Đang giao", "Đã giao", "Đã hủy", "Trả hàng/Hoàn tiền" };
+}
+@section header{
+    Danh sách Order
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="container-fluid">
+            <!-- Page Heading -->
+                <!-- Page Heading -->
+                <h1 class="h3 mb-2 text-gray-800"></h1>
+
+                <!-- DataTales Example -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary"></h6>
+                    </div>
+                    <div class="card-body">
+                        @using (Html.BeginForm("OrderIndex", "AdminManage", FormMethod.Get))
+                        {
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control" name="searchString" />
+                                    </div>
+                                    <br />
+                                    <div class="col-md-4">
+                                        <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        <br />
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+
+                                        <th>ID</th>
+                                        <th>Tên</th>
+                                        <th>SĐT</th>
+                                        <th>Email</th>
+                                        <th>Địa chỉ</th>
+                                        <th>Trạng thái</th>
+                                        <th>#</th>
+                                        @*<th>Start date</th>
+                                    <th>Salary</th>*@
+                                    </tr>
+                                </thead>
+                                <tfoot>
+
+                                </tfoot>
+                                <tbody>
+                                    @if (Model.Count == 0)
+                                    {
+                                        <tr>
+                                            <td colspan="6">
+                                                <img src="/assets/admin/images/process.jpg" style="display:block;margin:0 auto" width="200px" height="200px" />
+                                                <p style="text-align:center">Không tìm thấy đơn hàng nào</p>
+                                            </td>
+                                        </tr>
+                                    }
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr id="row_@item.ID">
+                                            <td>@item.ID</td>
+                                            <td>@item.ShipName</td>
+                                            <td>@item.ShipMobile</td>
+                                            <td>@item.ShipEmail</td>
+                                            <td>@item.ShipAddress</td>
+                                            @*<th><a href="#" class="btn-activeorder" data-id="@item.ID">@(item.Status ? "Đã thanh toán" : "Chưa thanh toán")</a></th>*@
+                                            <td class="line-infor check text-info"><span><i class="fa fa-check"></i> @listStatus[item.Status - 1]</span></td>
+                                            <td>
+                                                <a class="btn btn-primary" href="/Admin/AdminManage/OrderDetail/@item.ID">Chi tiết Order</a>
+                                                |
+                                                @Ajax.ActionLink("Xóa", "DeleteOrder", new { @id = item.ID }, new AjaxOptions
+                                       {
+                                           Confirm = "Bạn có muốn xóa bản ghi này!",
+                                           OnComplete = "$('#row_" + @item.ID + " ').remove()",
+                                           HttpMethod = "Delete"
+                                       })
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+
+                            @Html.PagedListPager(Model, page => Url.Action("OrderIndex", new { page }))
+                        </div>
+                    </div>
+                </div>
+
+</div>
+        <!-- /.container-fluid -->
+    </div>
+    <div class="col-lg-10">
+        <div class="menu">
+
+            <a href="/Admin/AdminManage/OrderIndex">
+                <button type="button" class="btn btn-primary">All</button>
+            </a>
+            <a href="/Admin/AdminManage/OrderIndex?status=1">
+                <button type="button" class="btn btn-primary">Chờ xác nhận</button>
+            </a>
+            <a href="/Admin/AdminManage/OrderIndex?status=2">
+                <button type="button" class="btn btn-primary">Chờ lấy hàng</button>
+            </a>
+            <a href="/Admin/AdminManage/OrderIndex?status=3">
+            
+                <button type="button" class="btn btn-primary">Đang giao</button>
+            </a>
+            <a href="/Admin/AdminManage/OrderIndex?status=4">
+            
+                <button type="button" class="btn btn-primary">Đã giao</button>
+            </a>
+            <a href="/Admin/AdminManage/OrderIndex?status=5">
+            
+                <button type="button" class="btn btn-primary">Đã hủy</button>
+            </a>
+            <a href="/Admin/AdminManage/OrderIndex?status=6">
+            
+                <button type="button" class="btn btn-primary">Hoàn trả/ Hoàn tiền</button>
+            </a>
+
+        </div>
+    </div>
+</div>
+
+

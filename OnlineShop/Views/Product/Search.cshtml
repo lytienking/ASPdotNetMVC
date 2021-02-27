@@ -1,0 +1,191 @@
+﻿@model Model.EF.Product
+@{
+    var category = ViewBag.Category;
+    var listbyCateID = (List<Model.EF.Product>)ViewBag.Product;
+    var session = (UserLogin)Session[OnlineShop.Common.CommonConstant.USER_SESSION];
+    ViewBag.Title = "Kết quả tìm kiếm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content">
+    <div class="content_top">
+        <div class="heading">
+            <h2>Kết quả tìm kiếm theo từ khóa:@ViewBag.Keyword</h2>
+        </div>
+        <div class="see">
+            <p><a href="#"></a></p>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="section group">
+        <div class="row">
+            <div class="product__list another-product-style">
+                <!-- Start Single Product -->
+                <!--Premier League-->
+                @foreach (var item in listbyCateID)
+                {
+                    var url = "/chi-tiet/" + item.MetaTitle + "-" + @item.ID;
+                    <div class="col-md-3 single__pro col-lg-3 cat--1 col-sm-4 col-xs-12" style="height:430px;">
+                        <div class="product foo">
+                            <div class="product__inner">
+                                <div class="pro__thumb">
+                                    <a href="#">
+                                        <img src="@item.Image" alt="@item.Name">
+                                    </a>
+                                </div>
+                                <div class="product__hover__info">
+                                    <ul class="product__action">
+                                        <li><a data-toggle="modal" data-target="#@item.ID" title="Quick View" class="quick-view modal-view detail-link" href="#"><span class="ti-plus"></span></a></li>
+                                        @if (session == null)
+                                        {
+                                            <li><a title="Add To Cart" href="/Login/Index"><span class="ti-shopping-cart"></span></a></li>
+                                        }
+                                        else
+                                        {
+                                            <li><a title="Add To Cart" href="/them-gio-hang?productId=@item.ID&quantity=1&size=S"><span class="ti-shopping-cart"></span></a></li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="product__details">
+                                <h2><a href="/Product/Detail/@item.ID">@item.Name</a></h2>
+                                <ul class="product__price">
+                                    <li class="old__price">@item.PromotionPrice$</li>
+                                    <li class="new__price">@item.Price$</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <!-- End Single Product -->
+                <!-- Start Single Product -->
+            </div>
+        </div>
+        <div id="quickview-wrapper">
+            <!-- Modal -->
+            @foreach (var item in listbyCateID)
+            {
+                <div class="modal fade" id="@item.ID" tabindex="-1" role="dialog">
+                    <div class="modal-dialog modal__container" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="modal-product">
+                                    <!-- Start product /assets/net/images -->
+                                    <div class="product-images">
+                                        <div class="main-image images">
+                                            <img alt="big images" src="@item.Image">
+                                        </div>
+                                    </div>
+                                    <!-- end product /assets/net/images -->
+                                    <div class="product-info">
+                                        <h1>@item.Name</h1>
+                                        <div class="rating__and__review">
+                                            <ul class="rating">
+                                                <li><span class="ti-star"></span></li>
+                                                <li><span class="ti-star"></span></li>
+                                                <li><span class="ti-star"></span></li>
+                                                <li><span class="ti-star"></span></li>
+                                                <li><span class="ti-star"></span></li>
+                                            </ul>
+                                            <div class="review">
+                                                <a href="#">4 customer reviews</a>
+                                            </div>
+                                        </div>
+                                        <div class="price-box-3">
+                                            <div class="s-price-box">
+                                                <span class="new-price">@item.Price$</span>
+                                                <span class="old-price">@item.PromotionPrice$</span>
+                                            </div>
+                                        </div>
+                                        <div class="quick-desc">
+                                            @item.Detail
+                                        </div>
+                                        <!-- <div class="select__color">
+                                            <h2>Select color</h2>
+                                            <ul class="color__list">
+                                                <li class="red"><a title="Red" href="#">Red</a></li>
+                                                <li class="gold"><a title="Gold" href="#">Gold</a></li>
+                                                <li class="orange"><a title="Orange" href="#">Orange</a></li>
+                                                <li class="orange"><a title="Orange" href="#">Orange</a></li>
+                                            </ul>
+                                        </div> -->
+                                        <div class="social-sharing">
+                                            <div class="widget widget_socialsharing_widget">
+                                                <h3 class="widget-title-modal">Share this product</h3>
+                                                <ul class="social-icons">
+                                                    <li><a target="_blank" title="rss" href="#" class="rss social-icon"><i class="zmdi zmdi-rss"></i></a></li>
+                                                    <li><a target="_blank" title="Linkedin" href="#" class="linkedin social-icon"><i class="zmdi zmdi-linkedin"></i></a></li>
+                                                    <li><a target="_blank" title="Pinterest" href="#" class="pinterest social-icon"><i class="zmdi zmdi-pinterest"></i></a></li>
+                                                    <li><a target="_blank" title="Tumblr" href="#" class="tumblr social-icon"><i class="zmdi zmdi-tumblr"></i></a></li>
+                                                    <li><a target="_blank" title="Pinterest" href="#" class="pinterest social-icon"><i class="zmdi zmdi-pinterest"></i></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="addtocart-btn">
+                                            @if (session != null)
+                                            {
+                                                <button><a href="/them-gio-hang?productId=@item.ID&quantity=1&size=S">Thêm vào giỏ hàng</a></button>
+                                            }
+                                            else
+                                            {
+                                                <button><a href="/Login/Index">Thêm vào giỏ hàng</a></button>
+                                            }
+                                        </div>
+                                    </div><!-- .product-info -->
+                                </div><!-- .modal-product -->
+                            </div><!-- .modal-body -->
+                        </div><!-- .modal-content -->
+                    </div><!-- .modal-dialog -->
+                </div>
+            }
+            <!-- END Modal -->
+            <!--Phân trang-->
+            @if (ViewBag.TotalPage > 1)
+            {
+                var pageDisplay = (int)(ViewBag.MaxPage);
+                int totalPage = (int)ViewBag.TotalPage;
+                int currentPage = ((int)ViewBag.Page);
+
+                var startPageIndex = Math.Max(1, currentPage - pageDisplay / 2);
+                var endPageIndex = Math.Min(totalPage, currentPage + pageDisplay / 2);
+                var link = "/tim-kiem?keyword"+"=" + ViewBag.Keyword;
+                <nav>
+                    <div class="pagination">
+                        @if (currentPage > ViewBag.First)
+                        {
+                            <li><a href="@link&page=@ViewBag.First" title="Trang đầu" class="first"><i class="fa fa-angle-double-left"></i></a></li>
+                            <li><a href="@link&page=@ViewBag.Prev" title="Trang trước" class="prev"><i class="fa fa-angle-left"></i></a></li>
+                        }
+                        @for (int i = startPageIndex; i <= endPageIndex; i++)
+                        {
+                            if (currentPage == i)
+                            {
+                                <li><a href="@link=&page=@i" class="active" title="Trang @i">@i</a></li>
+                            }
+                            else
+                            {
+                                <li><a href="@link&page=@i" class="pos" title="Trang @i">@i</a></li>
+                            }
+                        }
+                        @if (currentPage < totalPage)
+                        {
+                            <li><a href="@link&page=@ViewBag.Next" class="next" title="Trang sau"><i class="fas fa-angle-right"></i></a></li>
+                            <li><a href="@link&page=@ViewBag.Last" class="next" title="Trang cuối"><i class="fa fa-angle-double-right"></i></a></li>
+                        }
+                    </div>
+                </nav>
+
+            }
+            else
+            {
+                <span></span>
+            }
+        </div>
+    </div>
+</div>
+
+
+

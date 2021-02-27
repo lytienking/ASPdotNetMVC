@@ -1,0 +1,73 @@
+﻿@model List<OnlineShop.Models.CartItem>
+@{
+    ViewBag.Title = "Thanh toán";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="content">
+    <div class="section-group">
+        @if (Model.Count > 0)
+        {
+            <div class="table-content table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="product-thumbnail">Image</th>
+                            <th class="product-name">Product</th>
+                            <th class="product-price">Price</th>
+                            <th class="product-size">Size</th>
+                            <th class="product-quantity">Quantity</th>
+                            <th class="product-subtotal">Total</th>
+                            <th class="product-remove">Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr id="row_@item.Product.ID">
+                                <td class="product-thumbnail"><a href="#"><img src="@item.Product.Image" alt="product img" /></a></td>
+                                <td class="product-name"><a href="#">@item.Product.Name</a></td>
+                                <td class="product-price"><span class="amount">@item.Product.Price$</span></td>
+                                <td><input class="txtSize" type="text" value="@item.Size" data-id="@item.Product.ID" /></td>
+                                <td><input class="txtQuantity" type="number" value="@item.Quantity" data-id="@item.Product.ID" /></td>
+                                <td class="product-subtotal">@((item.Quantity * item.Product.Price))$</td>
+                                <td class="product-remove"><a href="#" data-id="@item.Product.ID" class="btn-delete">X</a></td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+    <section class="our-checkout-area ptb--120 bg__white">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-lg-8">
+                    @using (Html.BeginForm("Payment", "Cart", FormMethod.Post))
+                    {
+                        <div class="ckeckout-left-sidebar">
+                            <!-- Start Checkbox Area -->
+                            <div class="checkout-form">
+                                <h2 class="section-title-3">Billing details</h2>
+                                <div class="checkout-form-inner">
+                                    <div class="single-checkout-box">
+                                        <input type="text" name="name" placeholder="Name*" required>
+                                        <input type="text" name="address" placeholder="Address*" required>
+                                    </div>
+                                    <div class="single-checkout-box">
+                                        <input type="email" name="email" placeholder="Email*" required>
+                                        <input type="text" name="phone" placeholder="Phone*" required>
+                                    </div>
+                                </div>
+                            </div>                                   
+                                <div class="checkout-btn">
+                                    <button type="submit" class="btn" >CONFIRM & BUY NOW</button>
+                                </div>
+                            <!-- End Payment Way -->
+                        </div>
+                    }
+                    
+                </div>
+            </div>
+
+

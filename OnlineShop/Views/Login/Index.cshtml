@@ -1,0 +1,113 @@
+﻿@model OnlineShop.Areas.Admin.Models.LoginModel
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login V6</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="/assets/admin/images/icons/favicon.ico" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/assets/admin/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/assets/admin/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/assets/admin/fonts/iconic/css/material-design-iconic-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/assets/admin/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/assets/admin/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/assets/admin/vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/assets/admin/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/assets/admin/vendor/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/assets/admin/css/util.css">
+    <link rel="stylesheet" type="text/css" href="/assets/admin/css/main.css">
+    <!--===============================================================================================-->
+</head>
+<body>
+
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100 p-t-85 p-b-20">
+                @*<form class="login100-form validate-form">*@
+                @using (Html.BeginForm("Login", "Login", FormMethod.Post))
+                {
+                    @Html.ValidationSummary(false, "", new { @class = " text-danger" });
+                    <span class="login100-form-title p-b-70">
+                        Welcome to login
+                    </span>
+                    <span class="login100-form-avatar">
+                        <img src="/assets/admin/images/mancity.png" alt="AVATAR">
+                    </span>
+                    <p>
+                        Enter your username
+                    </p>
+                    <div class="wrap-input100 validate-input m-b-50" data-validate="Enter username">
+
+                        @Html.TextBoxFor(model => model.Username, new { @class = "form-control", @autofocus = "autofocus" })
+                    </div>
+                    <p>
+                        Enter your password
+                    </p>
+                    <div class="wrap-input100 validate-input m-b-50" data-validate="Enter password">
+                        @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
+
+                    </div>
+                    <div class="container-login100-form-btn">
+                        <button type="submit" class="login100-form-btn">
+                            Login
+                        </button>
+                    </div>
+
+                    <ul class="login-more p-t-190">
+                        <li class="m-b-8">
+                            <span class="txt1">
+                                Forgot
+                            </span>
+
+                            <a href="/ForgotPassword/Index" class="txt2">
+                                Username / Password?
+                            </a>
+                        </li>
+
+                        <li>
+                            <span class="txt1">
+                                Don’t have an account?
+                            </span>
+
+                            <a href="/Register/Index" class="txt2">
+                                Sign up
+                            </a>
+                        </li>
+                    </ul>
+                }
+            </div>
+        </div>
+    </div>
+
+
+    <div id="dropDownSelect1"></div>
+
+    <!--===============================================================================================-->
+    <script src="/assets/admin/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="/assets/admin/vendor/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="/assets/admin/vendor/bootstrap/js/popper.js"></script>
+    <script src="/assets/admin/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="/assets/admin/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="/assets/admin/vendor/daterangepicker/moment.min.js"></script>
+    <script src="/assets/admin/vendor/daterangepicker/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+    <script src="/assets/admin/vendor/countdowntime/countdowntime.js"></script>
+    <!--===============================================================================================-->
+    <script src="/assets/admin/js/main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,101 @@
+﻿@model PagedList.IPagedList<Model.EF.Product>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "ProductIndex";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@section header{
+    Danh sách sản phẩm
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <h1 class="h3 mb-2 text-gray-800"></h1>
+
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary"></h6>
+                </div>
+                <div class="card-body">
+                    @using (Html.BeginForm("ProductIndex", "AdminManage", FormMethod.Get))
+                    {
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" name="searchString" />
+                                </div>
+                                <br />
+                                <div class="col-md-4">
+                                    <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <br />
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Mã sản phẩm</th>
+                                    <th>Đường dẫn sản phẩm</th>
+                                    <th>Đường dẫn ảnh</th>
+                                    <th>Giá khuyến mãi</th>
+                                    <th>Giá gốc</th>
+                                    <th>Quantity</th>
+                                    <th>Chi tiết sản phẩm</th>
+                                    <th>#</th>
+                                    @*<th>Start date</th>
+                                        <th>Salary</th>*@
+                                </tr>
+                            </thead>
+                            <tfoot>
+
+                            </tfoot>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr id="row_@item.ID">
+                                        <td>@item.Name</td>
+                                        <td>@item.ID</td>
+                                        <td>@item.MetaTitle</td>
+                                        <td><img src="@item.Image" height="100" width="100"></td>
+                                        <td>@item.Price</td>
+                                        <td>@item.PromotionPrice</td>
+                                        <td>@item.Quantity</td>
+                                        <td>@item.Detail</td>
+                                        <td>
+                                            <a class="btn btn-primary" href="/Admin/AdminManage/EditProduct/@item.ID">Sửa</a>
+                                            |
+                                            @Ajax.ActionLink("Xóa", "DeleteProduct", new { @id = item.ID }, new AjaxOptions
+                                       {
+                                           Confirm = "Bạn có muốn xóa bản ghi này!",
+                                           OnComplete = "$('#row_" + @item.ID + " ').remove()",
+                                           HttpMethod = "Delete"
+                                       })
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        <a class="btn btn-primary" href="/Admin/AdminManage/CreateProduct/">Thêm</a>
+                       
+
+                        @Html.PagedListPager(Model, page => Url.Action("ProductIndex", new { page }))
+                        @using (Html.BeginForm("Export", "AdminManage", FormMethod.Post))
+                        {
+                            <input type="submit" value="Export">
+                        }
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container-fluid -->
+    </div>
+</div>
+

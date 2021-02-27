@@ -1,0 +1,39 @@
+﻿@model OnlineShop.Models.CodeOrderModel
+@{
+    ViewBag.Title = "Thanh toán";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="content">
+    <div class="section-group">
+       
+    </div>
+    <section class="our-checkout-area ptb--120 bg__white">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-lg-8">
+                    @using (Html.BeginForm("Index", "ComfirmOrder", FormMethod.Post))
+                    {
+                        @Html.ValidationSummary(false, "", new { @class = " text-danger" });
+                        <div class="ckeckout-left-sidebar">
+                            <!-- Start Checkbox Area -->
+                            <div class="checkout-form">
+                                <h2 class="section-title-3">Comfirm Orders</h2>
+                                <div class="checkout-form-inner">
+                                    <div class="single-checkout-box">
+                                        @*<input type="text" name="name" placeholder="Code*" required>*@
+                                        @Html.TextBoxFor(model => model.Code, new { @class = "form-control " })                         
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="checkout-btn">
+                                <button type="submit" class="btn">CONFIRM</button>
+                            </div>
+                            <!-- End Payment Way -->
+                        </div>
+                    }
+
+                </div>
+            </div>
+
+
+

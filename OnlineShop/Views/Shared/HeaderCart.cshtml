@@ -1,0 +1,36 @@
+﻿@model List<OnlineShop.Models.CartItem>
+<div class="shopping__cart">
+    <div class="shopping__cart__inner">
+        <div class="offsetmenu__close__btn">
+            <a href="#"><i class="zmdi zmdi-close"></i></a>
+        </div>
+        <div class="shp__cart__wrap">
+            @foreach (var item in Model)
+            {
+                <div class="shp__single__product">
+
+                    <div class="shp__pro__thumb">
+                        <a href="#">
+                            <img src="@item.Product.Image" alt="product /assets/net/images">
+                        </a>
+                    </div>
+                    <div class="shp__pro__details">
+                        <h2><a href="product-details.html">Tên sản phẩm: @item.Product.Name</a></h2>
+                        <span class="quantity">Số lượng: @item.Quantity</span>
+                        @*<span class="shp__price">Tiền: @item.Product.Price$</span>*@
+                    </div>
+                    <div class="remove__btn">
+                        <a href="#" title="Remove this item"><i class="zmdi zmdi-close"></i></a>
+                    </div>
+                </div>
+            }
+            </div>
+            <ul class="shoping__total">
+                <li class="subtotal"></li>
+                <li class="total__price"></li>
+            </ul>
+            <ul class="shopping__btn">
+                <li><a href="/gio-hang">View Cart</a></li>
+            </ul>
+        </div>
+    </div>

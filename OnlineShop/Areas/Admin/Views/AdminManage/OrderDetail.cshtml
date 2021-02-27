@@ -1,0 +1,78 @@
+﻿@model Model.ViewModel.OrderDetailViewModel
+@{
+    ViewBag.Title = "OrderDetail";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var listStatus = new string[] { "Chờ xác nhận", "Chờ lấy hàng", "Đang giao", "Đã giao", "Đã hủy", "Trả hàng/Hoàn tiền" };
+}
+@section header{
+    Chi tiết hóa đơn
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <h1 class="h3 mb-2 text-gray-800"></h1>
+
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary"></h6>
+                </div>
+                <div class="card-body">
+                    <br />
+                    @*<h2>Khách hàng: @Model.user.Name</h2>*@
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Ảnh</th>
+                                    <th>Size</th>
+                                    <th>Số lượng</th>
+                                    <th>#</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                            </tfoot>
+                            <tbody>
+                                @foreach (var item in Model.items)
+                                {
+                                    <tr id="row_@item.product.ID">
+                                        <td>@item.product.ID</td>
+                                        <td>@item.product.Name</td>
+                                        <td><img src="@item.product.Image" height="100" width="100"></td>
+                                        <td>@item.size</td>
+                                        <td>@item.quantity</td>
+                                        <td>
+
+                                            @Ajax.ActionLink("Xóa", "DeleteDetail", new { @id = item.product.ID, @orderid=Model.orderID}, new AjaxOptions
+                                       { 
+                                           Confirm = "Bạn có muốn xóa bản ghi này!",
+                                           OnComplete = "$('#row_" + @item.product.ID+ " ').remove()",
+                                           HttpMethod = "Delete",
+
+                                       })
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        <h2>Trạng thái đơn hàng</h2>
+                        <select class="col-lg-3" id="changeStatus" data-id="@Model.orderID">
+                            @for (var i = 0; i < listStatus.Length; i++)
+                            {
+                                <option value="@(i+1)" @if (i + 1 == Model.status) { Write("selected"); }>@listStatus[i]</option>
+                            }
+                        </select>
+                        <br/>
+                        <h2>Tổng tiền: @Model.TotalPrice$</h2>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container-fluid -->
+    </div>
+</div>

@@ -1,0 +1,119 @@
+﻿@model OnlineShop.Models.ResetPasswordModel
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login V6</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="/assets/admin/images/icons/favicon.ico" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/assets/admin/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/assets/admin/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/assets/admin/fonts/iconic/css/material-design-iconic-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/assets/admin/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/assets/admin/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/assets/admin/vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/assets/admin/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/assets/admin/vendor/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/assets/admin/css/util.css">
+    <link rel="stylesheet" type="text/css" href="/assets/admin/css/main.css">
+    <!--===============================================================================================-->
+</head>
+<body>
+
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100 p-t-85 p-b-20">
+                <span class="login100-form-avatar">
+                    <img src="/assets/admin/images/mancity.png" alt="AVATAR">
+                </span>
+                @using (Html.BeginForm("Index", "ResetPassword", FormMethod.Post))
+                {
+                    @Html.ValidationSummary(false, "", new { @class = " text-danger" });
+                    <p>
+                        Username
+                    </p>
+                    <div class="form-group">
+                        @*<input type="text" class="form-control form-control-user" required id="exampleInputUsername" placeholder="">*@
+                        
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.Username, new {  @class = "form-control " })                   
+                        </div>
+                    </div>
+                    <p>
+                        New Password
+                    </p>
+                    <div class="form-group">
+                        @*<input type="password" class="form-control form-control-user" required id="exampleInputUsername" placeholder="">*@
+                        
+                        <div class="col-md-10">
+                            @Html.PasswordFor(model => model.Password, new { @class = "form-control " })
+                    
+                        </div>
+                    </div>
+                    <p>
+                       RePassword
+                    </p>
+                    <div class="form-group">
+                        @*<input type="password" class="form-control form-control-user" required id="exampleInputUsername" placeholder="">*@
+                        
+                        <div class="col-md-10">
+                            @Html.PasswordFor(model => model.RePassword, new { @class = "form-control " })
+                            
+                        </div>
+                    </div>
+                    <p>
+                        Enter your code
+                    </p>
+                    <div class="form-group">
+                        @*<input type="text" class="form-control form-control-user" required id="exampleInputUsername" placeholder="">*@
+                        
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.Code, new { @class= "form-control " })
+
+                        </div>
+                    </div>
+
+                    <div class="container-login100-form-btn">
+                        <button type="submit"  class="login100-form-btn">
+                            Save change
+                        </button>
+                    </div>
+                }               
+                <div class="text-center">
+                    <a class="small" href="/Login/Index">Already have an account? Login!</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="dropDownSelect1"></div>
+
+    <!--===============================================================================================-->
+    <script src="/assets/admin/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="/assets/admin/vendor/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="/assets/admin/vendor/bootstrap/js/popper.js"></script>
+    <script src="/assets/admin/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="/assets/admin/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="/assets/admin/vendor/daterangepicker/moment.min.js"></script>
+    <script src="/assets/admin/vendor/daterangepicker/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+    <script src="/assets/admin/vendor/countdowntime/countdowntime.js"></script>
+    <!--===============================================================================================-->
+    <script src="/assets/admin/js/main.js"></script>
+
+</body>
+</html>
+

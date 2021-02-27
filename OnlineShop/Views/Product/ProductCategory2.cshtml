@@ -1,0 +1,16 @@
+﻿@model List<Model.EF.ProductCategory>
+<div class="category-part-1 category-common mb--30">
+    <h4 class="categories-subtitle">Giày thi đấu chính hãng</h4>
+
+    <ul>
+        @foreach (var item in Model)
+        {
+            if (@item.ParentID == 2)
+            {
+                <li><a href="/san-pham/@item.MetaTitle-@item.ID">@item.Name</a></li>
+            }
+        }
+    </ul>
+</div>
+
+
